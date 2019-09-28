@@ -11,6 +11,7 @@
 
 using JuMP, Cbc
 include("knapsack/knapsack.jl")
+include("boardProblem/boardProblem.jl")
 
 function main(ARGS)
 
@@ -20,12 +21,16 @@ function main(ARGS)
     dataFile = open(string(problem, "/", fileName), "r")
     lines = readlines(dataFile)
 
-    if(problem == "knapsack")
+    if (problem == "knapsack")
         weights = [parse(Int, weight) for weight in split(lines[1], " ")]
         values = [parse(Int, value) for value in split(lines[2], " ")]
         capacity = parse(Int, lines[3])
 
         knapsack(length(values), weights, values, capacity)
+    elseif (problem == "boardProblem")
+        n, m, v = [parse(Int, element) for element in split(lines[1], " ")]
+
+        boardProblem(n, m, v)
     else
         println("Error on second argumment of command terminal!")
     end

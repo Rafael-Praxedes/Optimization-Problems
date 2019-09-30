@@ -12,6 +12,7 @@
 using JuMP, Cbc
 include("knapsack/knapsack.jl")
 include("boardProblem/boardProblem.jl")
+include("vertexCover/vertexCover.jl")
 
 function main(ARGS)
 
@@ -31,6 +32,16 @@ function main(ARGS)
         n, m, v = [parse(Int, element) for element in split(lines[1], " ")]
 
         boardProblem(n, m, v)
+    elseif (problem == "vertexCover")
+        n_Vertex = parse(Int, lines[1])
+        n_Edges = parse(Int, lines[2])
+
+        edges = []
+        for i in 1:n_Edges
+            push!(edges, [parse(Int, element) for element in split(lines[2 + i], " ")])
+        end
+
+        vertexCover(n_Vertex, edges)
     else
         println("Error on second argumment of command terminal!")
     end
